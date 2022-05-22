@@ -1,0 +1,13 @@
+.navbar__btn:hover:before {
+    width: 85%;
+}
+
+.navbar__btn:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    transition: width 0.3s ease;
+    height: 1px;
+    background: white;
+    bottom: 5px;
+}
