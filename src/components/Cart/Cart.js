@@ -1,11 +1,11 @@
-import './Carrito.css';
+import './Cart.css';
 import IconCart from '@mui/icons-material/Shop';
 
-const Carrito = () => {
+const Cart = () => {
   return (
     //JSX
     <IconCart />
   );
 }
 
-export default Carrito;
+export default Cart;

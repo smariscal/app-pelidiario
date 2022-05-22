@@ -2,7 +2,7 @@ import * as React from 'react';
 import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/LiveTv';
-import Carrito from '../Carrito/Carrito';
+import Cart from '../Cart/Cart';
 import './Navbar.css';
 
 
@@ -105,7 +105,7 @@ const Navbar = () => {
               </Button>
             ))}            
           </Box>  
-          <Carrito/>        
+          <Cart/>        
         </Toolbar>                      
       </Container>
     </AppBar>
