@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar.js';
-import ItemContainer from './components/ItemContainer/ItemContainer.js';
+import ItemContainer from './components/ItemListContainer/ItemListContainer';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
