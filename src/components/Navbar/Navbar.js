@@ -3,6 +3,7 @@ import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, M
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/LiveTv';
 import Cart from '../Cart/Cart';
+import { Link } from "react-router-dom";
 import './Navbar.css';
 
 
@@ -23,23 +24,26 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Raleway, Arial',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Pelidiario
-          </Typography>
-
+          <Link to='/' style={{textDecoration: "none", color:"white"}}>
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          </Link>
+          <Link to='/' style={{textDecoration: "none", color:"white"}}>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'Raleway, Arial',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Pelidiario
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -71,11 +75,11 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link to={page} style={{textDecoration: "none", color:"white"}}><Typography textAlign="center">{page}</Typography></Link>
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box>          
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -95,14 +99,16 @@ const Navbar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                className='navbar__btn'
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link to={page} style={{textDecoration: "none"}}>
+                <Button
+                  key={page}
+                  className='navbar__btn'
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}            
           </Box>  
           <Cart/>        

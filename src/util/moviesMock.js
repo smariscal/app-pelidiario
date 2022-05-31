@@ -402,26 +402,37 @@ const movies = [
  ]
 
  const movie = {
-   title : 'Remera Oversize',
-   price : 1500,
-   image : 'remera1.jpg',
-   description: '',
-   stock: 3,
-   id: 1
+   "adult":false,
+   "backdrop_path":"/8pgKccb5PfE1kWB9qqiXJem83VC.jpg",
+   "genre_ids":[
+      28,
+      53
+   ],
+   "id":522016,
+   "original_language":"en",
+   "original_title":"The 355",
+   "overview":"Thriller de espionaje -ideado y producido por Jessica Chastain- sobre cinco mujeres que se unen, superando sus rencillas y conflictos personales, para usar sus respectivos talentos y experiencia con un objetivo: intentar evitar que una poderosa organización adquiera un arma que empuje al tambaleante mundo al caos total. En el camino, estas mujeres se convertirán en camaradas y amigas, formando un nuevo grupo cuyo nombre en clave es \"355\", nombre que adoptan de la primera mujer espía en la Revolución Americana.",
+   "popularity":587.077,
+   "poster_path":"/kgU2aIuDdPyKtEi8oZ6yzohpfVF.jpg",
+   "release_date":"2022-01-05",
+   "title":"Agentes 355",
+   "video":false,
+   "vote_average":6,
+   "vote_count":450
 }
 
 export const getMovies = () => {
-   return new Promise( (resolve, reject) => {
-      setTimeout(() => {
-         resolve(movies)
-      }, 2000)
-   })
+  return new Promise( (resolve, reject) => {
+    setTimeout(() => {
+      resolve(movies)
+    }, 2000)
+  })
 };
 
 export const getMovie = () => {
-   return new Promise( (resolve, reject) => {
-      setTimeout(() => {
-         resolve(movie)
-      }, 2000)
-   })
+  return new Promise( (resolve, reject) => {
+    setTimeout(() => {
+      resolve(movie)
+    }, 2000)
+  })
 };

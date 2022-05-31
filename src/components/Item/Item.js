@@ -1,5 +1,4 @@
-import {Box, Card, CardContent, CardMedia, Typography} from '@mui/material';
-import ItemCount from '../ItemCount/ItemCount';
+import {Box, Card, CardContent, CardMedia, Typography, Button} from '@mui/material';
 
 const Item = ({ title, voteAverage, posterUrl }) => {
   return (
@@ -10,7 +9,7 @@ const Item = ({ title, voteAverage, posterUrl }) => {
         image={'https://image.tmdb.org/t/p/w1280' + posterUrl}
         alt={title}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
             {title}
@@ -19,13 +18,11 @@ const Item = ({ title, voteAverage, posterUrl }) => {
             {'Puntuacion: ' + voteAverage}
           </Typography>
         </CardContent>
-        <ItemCount 
-          stock={5} 
-          initial={1}
-        />
+        <Button variant="outlined" sx={{ width: 100, margin: 'auto' }}>+ Info</Button>
       </Box>       
     </Card>
   );
 }
 
 export default Item;
+
