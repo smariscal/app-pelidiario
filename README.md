@@ -1,9 +1,9 @@
-# Getting Started with Create React App
+# Pelidiario-app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Introduction
-This project is being developed in a React course. The main goal is to applu the previously acquired knowledge of HTML, CSS, VanillaJS and the concept learned on this course to build a app-movies
+This project is being developed in a React course. The main goal is to apply the previously acquired knowledge of HTML, CSS, VanillaJS and the concept learned on this course to build an app-movies that allows to see news and select favourites.
 
 ## Installed dependencies
 -material (5.6.4) Styles of the components and with the responsive developing.
@@ -12,7 +12,7 @@ This project is being developed in a React course. The main goal is to applu the
 
 ## Project Status
 
-This project is currently in development. Users can select a movie to see more details, choose quantity and add to favourite. Also, users can filter the products by genre.
+This project is currently in development. Users can select a movie to see more details, choose quantity to buy and add to favourite. Also, users can filter the products by genre.
 
 ### `npm start`
 
