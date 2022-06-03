@@ -1,6 +1,7 @@
 import {Box, Card, CardContent, CardMedia, Typography, Button} from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const Item = ({ title, voteAverage, posterUrl }) => {
+const Item = ({ id, title, voteAverage, posterUrl }) => {
   return (
     <Card sx={{ display: 'flex' }}>
       <CardMedia
@@ -18,7 +19,7 @@ const Item = ({ title, voteAverage, posterUrl }) => {
             {'Puntuacion: ' + voteAverage}
           </Typography>
         </CardContent>
-        <Button variant="outlined" sx={{ width: 100, margin: 'auto' }}>+ Info</Button>
+        <Button variant="outlined" as={Link} to={`/movie/${id}`} sx={{ width: 100, margin: 'auto' }}>+ Info</Button>
       </Box>       
     </Card>
   );

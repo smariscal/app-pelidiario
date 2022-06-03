@@ -11,7 +11,7 @@ const ItemList = ({ movies }) => {
           movies.map( (m) => {
             return(
               <Grid item xs={12} md={4} lg={3} key={m.id}>
-                <Item title={m.title} voteAverage={m.vote_average} posterUrl={m.poster_path}/>
+                <Item id={m.id} title={m.title} voteAverage={m.vote_average} posterUrl={m.poster_path}/>
               </Grid>
             )
           })

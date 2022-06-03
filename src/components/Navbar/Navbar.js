@@ -99,9 +99,8 @@ const Navbar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link to={page} style={{textDecoration: "none"}}>
-                <Button
-                  key={page}
+              <Link to={page} key={page} style={{textDecoration: "none"}}>
+                <Button                  
                   className='navbar__btn'
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
