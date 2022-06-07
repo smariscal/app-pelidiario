@@ -27,7 +27,7 @@ const ItemCount = ({stock, initial}) => {
       {showToBuy 
       ?
         <Grid item xs={12}>
-          <Button as={Link} to='/cart' variant="outlined">Comprar</Button> 
+          <Button as={Link} to='/Carrito' variant="outlined">Comprar</Button> 
         </Grid>
       : 
         <>

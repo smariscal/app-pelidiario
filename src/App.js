@@ -6,6 +6,7 @@ import News from './pages/News';
 import Favorites from './pages/Favorites';
 import Calendar from './pages/Calendar';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import Cart from './components/Cart/Cart';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='*' element={<h1>404 - Página no encontrada</h1>} />
           <Route path="/" element={<News />} />
           <Route path="/Novedades" element={<News />} />
+          <Route path="/Carrito" element={<Cart />} />
           <Route path='/movie/:id' element={<ItemDetailContainer />} />
           <Route path='/genre/:genreId' element={<News />} />
           <Route path="/Favoritos" element={<Favorites />} />
