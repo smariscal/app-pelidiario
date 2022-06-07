@@ -1,8 +1,10 @@
 import { Button, ButtonGroup, Box } from '@mui/material';
 import { Link } from "react-router-dom";
 import './GenresList.css';
+import { useParams } from "react-router-dom";
 
 export default function GenresList({genres}) {
+  const { genreId } = useParams();
 
   return (
     <Box        
@@ -19,9 +21,9 @@ export default function GenresList({genres}) {
     >
       <ButtonGroup variant="outlined" aria-label="outlined button group">
         {
-        genres.map( (g) => {
+        genres.map( (genre) => {
           return(
-            <Button key={g.id} as={Link} to={`/genre/${g.id}`}>{g.name}</Button>
+            <Button key={genre.id} as={Link} className='btnGenreGroup' style={{textDecoration: "none"}} variant={Number(genreId) === genre.id ? 'contained' : 'outlined'} to={`/genre/${genre.id}`}>{genre.name}</Button>
           )
         })
         }

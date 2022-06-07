@@ -24,8 +24,6 @@ export async function getNowMovies(page, genreId) {
   try{
     const response = await fetch(`${TMDB.api_base_url}movie/now_playing?api_key=${TMDB.api_key}&page=${page}`)
     const responseData = await response.json()
-
-    console.log('genero id a buscar: ' + genreId)
     
     if (genreId === undefined)
       data = responseData?.results
