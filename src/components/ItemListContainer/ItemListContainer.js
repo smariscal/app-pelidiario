@@ -3,15 +3,16 @@ import { useEffect, useState } from 'react';
 import { getNowMovies } from '../../util/movies';
 import { getGenres } from '../../util/genres';
 import ItemList from '../ItemList/ItemList';
+import Loader from '../Loader/Loader';
 import GenresList from '../GenresList/GenresList';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 const ItemListContainer = ({titulo}) => {
-  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const { genreId } = useParams();
+  const [loader, setLoader] = useState(true);
 
   useEffect( () => {
 
@@ -26,6 +27,7 @@ const ItemListContainer = ({titulo}) => {
     getNowMovies(1, genreId) // paso un 1 hardcodeado para la pagina
     .then( (response) => {
       setMovies(response);
+      setLoader(false);
     })
     .catch( (err) => {
       /* console.log("Error: ", err) */
@@ -34,15 +36,30 @@ const ItemListContainer = ({titulo}) => {
 
   return (
     //JSX
-    <div className='general-container'>
-      <h2>{titulo}</h2>
-      <GenresList
-        genres = {genres}
-      />
-      <ItemList
-        movies = {movies}
-      />
-    </div>
+    <>
+      {
+        loader
+        ?
+          <>
+            <Loader
+              cant = {20}
+              v = 'rectangular'
+              w = {210}
+              h = {115}
+            />
+          </>
+        :  
+        <div className='general-container'>
+          <h2>{titulo}</h2>
+          <GenresList
+            genres = {genres}
+          />
+          <ItemList
+            movies = {movies}
+          />
+        </div>
+      }
+    </>
   );
 }
 

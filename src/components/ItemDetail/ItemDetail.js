@@ -1,5 +1,6 @@
 import './ItemDetail.css';
 import {Box, Card, CardContent, CardMedia, Typography, Grid} from '@mui/material';
+import TMDB from '../../util/TMDB';
 import ItemCount from '../../components/ItemCount/ItemCount'
 
 const Item = ({ movie }) => {
@@ -10,7 +11,7 @@ const Item = ({ movie }) => {
           <CardMedia
             sx={{ width:'100%' }}
             component="img"
-            image={'https://image.tmdb.org/t/p/w1280' + movie.backdrop_path}
+            image={TMDB.image_base_url + movie.backdrop_path}
             alt={movie.title}
           />
           <Box sx={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
@@ -26,6 +27,7 @@ const Item = ({ movie }) => {
               <ItemCount
                 stock={15}
                 initial={1}
+                movie={movie}
               />
             </Box>
           </Box>          

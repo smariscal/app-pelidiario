@@ -1,8 +1,9 @@
-import * as React from 'react';
+import { useContext, useState } from 'react';
 import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/LiveTv';
-import Cart from '../Cart/Cart';
+import CartWidget from '../CartWidget/CartWidget';
+import CartContext from '../../context/CartContext';
 import { Link } from "react-router-dom";
 import './Navbar.css';
 
@@ -10,7 +11,8 @@ import './Navbar.css';
 const pages = ['Novedades', 'Calendario', 'Favoritos'];
 
 const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { totalMovies } = useContext(CartContext);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -109,8 +111,8 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}            
-          </Box>  
-          <Cart/>        
+          </Box>
+          {totalMovies > 0 && <CartWidget/>}            
         </Toolbar>                      
       </Container>
     </AppBar>

@@ -1,9 +1,11 @@
 import './ItemCount.css';
+import CartContext from '../../context/CartContext';
 import { Button, Grid } from '@mui/material'; 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const ItemCount = ({stock, initial}) => {
+const ItemCount = ({stock, initial, movie}) => {
+  const { addMovieToCart } = useContext(CartContext);
   const[cant, setCant] = useState(initial);
   const[showToBuy, setShowToBuy] = useState(false);
 
@@ -18,6 +20,7 @@ const ItemCount = ({stock, initial}) => {
   }
 
   const handleAdd = () =>{
+    addMovieToCart({...movie, quantity: cant })
     setShowToBuy(prev => !prev);
   }
 
