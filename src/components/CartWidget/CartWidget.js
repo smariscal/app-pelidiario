@@ -38,8 +38,7 @@ export default function AccountMenu() {
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        onClose={handleClose}
-        onClick={handleClose}
+        onClose={handleClose}        
         PaperProps={{
           elevation: 0,
           sx: {

@@ -1,10 +1,10 @@
 import './Cart.css';
-import IconCart from '@mui/icons-material/Shop';
+import CartView from '../CartView/CartView';
 
 const Cart = () => {
   return (
     //JSX
-    <IconCart />
+    <CartView />
   );
 }
 
