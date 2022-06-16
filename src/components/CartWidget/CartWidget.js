@@ -83,19 +83,22 @@ export default function AccountMenu() {
           Eliminar
         </MenuItem>
         <Divider />
-        {cartMovies.map((movie) => (        
-          <MenuItem key={movie.id} sx={{cursor:'default'}}>
-            {movie.quantity}
-            <CardMedia
-              component="img"
-              sx={{ width: 50, marginRight:2, marginLeft:1}}
-              image={TMDB.image_base_url + movie.poster_path}
-              alt={movie.title}
-            />
-            {movie.title}
-            <DeleteIcon sx={{cursor:'pointer'}} onClick={() => deleteMovie(movie)}/>
-          </MenuItem>
-        ))}
+        {cartMovies.map((movie) => {
+          const { id, title, poster_path, quantity } = movie;
+          return(
+            <MenuItem key={id} sx={{cursor:'default'}}>
+              {quantity}
+              <CardMedia
+                component="img"
+                sx={{ width: 50, marginRight:2, marginLeft:1}}
+                image={TMDB.image_base_url + poster_path}
+                alt={title}
+              />
+              {title}
+              <DeleteIcon sx={{cursor:'pointer'}} onClick={() => deleteMovie(movie)}/>
+            </MenuItem>
+          )
+        })}
       </Menu>
     </>
   );

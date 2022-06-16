@@ -19,7 +19,7 @@ const CartProvider = ({children}) => {
   }
 
   const deleteMovies = () =>{
-    setCartMovies(prev => []);
+    setCartMovies(prevMovies => []);
   }
 
   const data = {

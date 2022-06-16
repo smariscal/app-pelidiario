@@ -1,13 +1,61 @@
-import { useContext } from 'react';
-import { Link } from "react-router-dom";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardMedia, Tooltip, Grid, Container, Button }  from '@mui/material';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardMedia, Tooltip, Grid, Container, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField }  from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { addDoc, collection } from 'firebase/firestore';
+import db from '../../util/firebase';
 import TMDB from '../../util/TMDB';
 import CartContext from '../../context/CartContext';
 import './CartView.css';
 
 export default function BasicTable() {
   const { deleteMovie, deleteMovies, cartMovies, totalMovies } = useContext(CartContext);
+  const navigate = useNavigate();
+  const [ openDialog, setOpenDialog ] = useState(false);
+  const [ formSubmit, setFormSumbit ] = useState(false);  
+  const [formValue, setFormValue] = useState({
+    name: '',
+    email: '',
+    phoneNumber: ''
+  });
+  const order = {
+    movies: cartMovies.map((movie) => {
+      return{
+        id: movie.id,
+        title: movie.title,
+        quantity: movie.quantity
+      }    
+    }),
+    totalMovies: totalMovies 
+  };
+
+  const handleChange = (e) => {
+    setFormValue({...formValue, [e.target.name]: e.target.value});
+  };
+
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleSubmit = () => {
+    setFormSumbit(true);    
+    if ((formValue.name !== '' && formValue.name !== null) && (formValue.email !== '' && formValue.email !== null) && (formValue.phoneNumber !== '' && formValue.phoneNumber !== null && !isNaN(formValue.phoneNumber))) {
+      saveData({...order, buyer: formValue});
+    }      
+  };
+
+  const handleCloseDialog = () => {
+    setFormSumbit(false);
+    setOpenDialog(false);
+  };
+  
+  const saveData = async (newOrder) => {
+    const orderFirebase = collection(db, 'ordenes');
+    const orderDoc = await addDoc(orderFirebase, newOrder);
+    console.log(orderDoc.id);
+    deleteMovies();
+    navigate('/Novedades');
+  };
 
   return (
     <Container maxWidth="xl">
@@ -27,31 +75,34 @@ export default function BasicTable() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cartMovies.map((movie) => (
-                    <TableRow
-                      key={movie.title}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        <Tooltip title={movie.title}>
-                          <CardMedia
-                            component="img"
-                            sx={{ width: 150}}
-                            image={TMDB.image_base_url + movie.poster_path}
-                            alt={movie.title}
-                          />
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell align="left">{movie.title}</TableCell>
-                      <TableCell align="left">{movie.overview}</TableCell>
-                      <TableCell align="right">{movie.quantity}</TableCell>
-                      <TableCell>
-                        <Tooltip title="Eliminar">
-                          <DeleteIcon sx={{cursor:'pointer'}} onClick={() => deleteMovie(movie)}/>
-                        </Tooltip>
-                      </TableCell>              
-                    </TableRow>
-                  ))}
+                  {cartMovies.map((movie) => {
+                    const { id, title, overview, poster_path, quantity } = movie;
+                    return(
+                      <TableRow                      
+                        key={id}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >                      
+                        <TableCell component="th" scope="row">
+                          <Tooltip title={title}>
+                            <CardMedia
+                              component="img"
+                              sx={{ width: 150}}
+                              image={TMDB.image_base_url + poster_path}
+                              alt={title}
+                            />
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell align="left">{title}</TableCell>
+                        <TableCell align="left">{overview}</TableCell>
+                        <TableCell align="right">{quantity}</TableCell>
+                        <TableCell>
+                          <Tooltip title="Eliminar">
+                            <DeleteIcon sx={{cursor:'pointer'}} onClick={() => deleteMovie(movie)}/>
+                          </Tooltip>
+                        </TableCell>              
+                      </TableRow>
+                    )
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -62,11 +113,63 @@ export default function BasicTable() {
             </Button>
           </Grid>
           <Grid item xs={10} md={5} sx={{margin:'auto', textAlign:'center'}}>
-            <Button variant="contained" color="success">
+            <Button variant="contained" color="success" onClick={handleClickOpenDialog}>
               Finalizar compra
             </Button>
           </Grid>          
-        </Grid>
+          <Dialog open={openDialog} onClose={handleCloseDialog}>
+            <DialogTitle>Finalizar compra</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Esta a punto de finalizar la compra, por favor complete los siguientes datos.
+              </DialogContentText>
+              <TextField
+                error = {formSubmit && (formValue.name === '' || formValue.name == null)}
+                autoFocus
+                required
+                name="name"
+                margin="dense"
+                id="standard-required"
+                label="Nombre"
+                variant="standard"
+                value={formValue.name}
+                onChange={handleChange} 
+              />
+              <TextField                
+                required
+                error = {formSubmit && (formValue.email === '' || formValue.email == null)}
+                margin="dense"
+                name="email"
+                id="name"
+                label="Email"
+                type="email"
+                fullWidth
+                variant="standard"
+                value={formValue.email}
+                onChange={handleChange} 
+              />
+              <TextField
+                required
+                error = {formSubmit && (formValue.phoneNumber === '' || formValue.phoneNumber == null || isNaN(formValue.phoneNumber))}
+                margin="dense"
+                id="standard-number"
+                name='phoneNumber'
+                label="Telefono"
+                type="tel"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="standard"
+                value={formValue.phoneNumber}
+                onChange={handleChange} 
+              />  
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog}>Cancelar</Button>
+              <Button onClick={handleSubmit}>Finalizar</Button>
+            </DialogActions>
+          </Dialog>
+        </Grid>        
         :
         <Grid container sx={{marginTop:'15px'}}>
           <div className='general-container'>
