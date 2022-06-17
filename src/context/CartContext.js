@@ -7,10 +7,13 @@ const CartProvider = ({children}) => {
   
   const addMovieToCart = (movie) => {
       setCartMovies(prevMovies => {
-        const existe = prevMovies.find(cartMovie => cartMovie.id === movie.id);
-        if (!existe)
+        const existe = prevMovies.findIndex(cartMovie => cartMovie.id === movie.id);
+        if (existe === -1)
           return [...prevMovies, movie]
-        return prevMovies   // ver si hace falta
+        else{        
+          prevMovies[existe].quantity += movie.quantity;
+          return prevMovies   // ver si hace falta
+        }          
       })
   }
 
