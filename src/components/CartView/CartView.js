@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CardMedia, Tooltip, Grid, Container, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField }  from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { addDoc, collection } from 'firebase/firestore';
@@ -10,10 +10,10 @@ import './CartView.css';
 
 export default function BasicTable() {
   const { deleteMovie, deleteMovies, cartMovies, totalMovies } = useContext(CartContext);
-  const navigate = useNavigate();
   const [ openDialog, setOpenDialog ] = useState(false);
   const [ formSubmit, setFormSumbit ] = useState(false);  
-  const [formValue, setFormValue] = useState({
+  const [ buySuccess, setBuySuccess ] = useState(0);
+  const [ formValue, setFormValue ] = useState({
     name: '',
     email: '',
     phoneNumber: ''
@@ -52,9 +52,8 @@ export default function BasicTable() {
   const saveData = async (newOrder) => {
     const orderFirebase = collection(db, 'ordenes');
     const orderDoc = await addDoc(orderFirebase, newOrder);
-    console.log(orderDoc.id);
+    setBuySuccess(orderDoc.id);
     deleteMovies();
-    navigate('/Novedades');
   };
 
   return (
@@ -173,10 +172,20 @@ export default function BasicTable() {
         :
         <Grid container sx={{marginTop:'15px'}}>
           <div className='general-container'>
-            <h2>Tu carrito está vacío.</h2>            
+            { buySuccess !== 0
+              ?
+                <>
+                  <h2>Compra finalizada</h2>
+                  <h3>
+                    Su id de compra es: {buySuccess}
+                  </h3>
+                </>
+              :
+                <h2>Tu carrito está vacío.</h2>
+            }                        
             <Link to='/Novedades' style={{textDecoration: "none", color:'white'}}>
               <Button variant="contained">Ver novedades</Button>
-            </Link>
+            </Link>            
           </div>          
         </Grid>
       }

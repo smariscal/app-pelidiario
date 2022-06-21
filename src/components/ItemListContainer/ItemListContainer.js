@@ -2,6 +2,7 @@ import './ItemListContainer.css';
 import { useEffect, useState } from 'react';
 import { getNowMovies } from '../../util/movies';
 import { getGenres } from '../../util/genres';
+import { Button } from '@mui/material'; 
 import ItemList from '../ItemList/ItemList';
 import Loader from '../Loader/Loader';
 import GenresList from '../GenresList/GenresList';
@@ -26,7 +27,7 @@ const ItemListContainer = ({titulo}) => {
 
     getNowMovies(1, genreId) // paso un 1 hardcodeado para la pagina
     .then( (response) => {
-      setMovies(response);
+      setMovies(prevMovies => response);
       setLoader(false);
     })
     .catch( (err) => {
@@ -57,6 +58,7 @@ const ItemListContainer = ({titulo}) => {
           <ItemList
             movies = {movies}
           />
+          <Button>Ver más</Button>
         </div>
       }
     </>
