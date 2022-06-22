@@ -1,7 +1,6 @@
 import './ItemListContainer.css';
 import { useEffect, useState } from 'react';
 import { getNowMovies } from '../../util/movies';
-import { getGenres } from '../../util/genres';
 import { Button } from '@mui/material'; 
 import ItemList from '../ItemList/ItemList';
 import Loader from '../Loader/Loader';
@@ -10,30 +9,40 @@ import { useParams } from "react-router-dom";
 
 
 const ItemListContainer = ({titulo}) => {
-  const [movies, setMovies] = useState([]);
-  const [genres, setGenres] = useState([]);
+  const [ movies, setMovies ] = useState([]);  
+  const [ page, setPage ] = useState(1);
   const { genreId } = useParams();
-  const [loader, setLoader] = useState(true);
+  const [ loader, setLoader ] = useState(true);
+  const [ filterMovies, setFilterMovies ] = useState([]);
 
-  useEffect( () => {
-
-    getGenres()
-    .then((response) =>{
-      setGenres(response);
-    })
-    .catch((err) =>{
-
-    });
-
-    getNowMovies(1, genreId) // paso un 1 hardcodeado para la pagina
+  useEffect(() => {    
+    getNowMovies(page)
     .then( (response) => {
-      setMovies(prevMovies => response);
+      setMovies(prevMovies => [...prevMovies, ...response]);
       setLoader(false);
     })
     .catch( (err) => {
-      /* console.log("Error: ", err) */
+      console.error(err);
     });    
-  }, [genreId])
+  }, [page])
+
+  useEffect(() => {
+    setFilterMovies(prevMovies => {
+
+      console.log(prevMovies);
+
+      if (genreId === undefined)
+        return movies;
+      else
+        return movies.filter( (movie) => {
+          return movie.genre_ids.includes(Number(genreId))
+        })    
+    });    
+  }, [genreId, movies])
+
+  const handleViewMore = () => {
+    setPage(prevPage => prevPage + 1)
+  }
 
   return (
     //JSX
@@ -52,13 +61,11 @@ const ItemListContainer = ({titulo}) => {
         :  
         <div className='general-container'>
           <h2>{titulo}</h2>
-          <GenresList
-            genres = {genres}
-          />
+          <GenresList />
           <ItemList
-            movies = {movies}
+            movies = {filterMovies}
           />
-          <Button>Ver más</Button>
+          <Button onClick={handleViewMore}>Ver más</Button>
         </div>
       }
     </>

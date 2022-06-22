@@ -1,10 +1,23 @@
 import { Button, ButtonGroup, Box } from '@mui/material';
-import { Link } from "react-router-dom";
 import './GenresList.css';
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useParams, Link } from "react-router-dom";
+import { getGenres } from '../../util/genres';
+import React from 'react';
 
-export default function GenresList({genres}) {
+export default function GenresList() {
   const { genreId } = useParams();
+  const [ genres, setGenres ] = useState([]);
+
+  useEffect(() => {
+    getGenres()
+    .then((response) =>{
+      setGenres(response);
+    })
+    .catch((err) =>{
+
+    });
+  }, [])
 
   return (
     <Box        
@@ -20,6 +33,7 @@ export default function GenresList({genres}) {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="outlined button group">
+        <Button as={Link} className='btnGenreGroup' style={{textDecoration: "none"}} variant={genreId === undefined ? 'contained' : 'outlined'} to={`/Novedades`}>Todas</Button>
         {
         genres.map( (genre) => {
           return(

@@ -19,18 +19,13 @@ export async function getPopularMovies(page, genreId) {
   return data
 }
 
-export async function getNowMovies(page, genreId) {
+export async function getNowMovies(page) {
   let data = []
   try{
     const response = await fetch(`${TMDB.api_base_url}movie/now_playing?api_key=${TMDB.api_key}&page=${page}`)
     const responseData = await response.json()
     
-    if (genreId === undefined)
-      data = responseData?.results
-    else
-      data = responseData?.results.filter( (m) => {
-        return m.genre_ids.includes(Number(genreId))
-      })    
+    data = responseData?.results    
   }catch (error) {
       
   }

@@ -4,7 +4,7 @@ const CartContext = createContext();
 
 const CartProvider = ({children}) => {
   const [cartMovies, setCartMovies] = useState([])
-  
+
   const addMovieToCart = (movie) => {
       setCartMovies(prevMovies => {
         const existe = prevMovies.findIndex(cartMovie => cartMovie.id === movie.id);

@@ -9,13 +9,13 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
 
-function App() {
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
+function App() { 
 
   return (
     //JSX
@@ -25,7 +25,7 @@ function App() {
           <Navbar/>              
           <Routes>
             <Route path='*' element={<h1>404 - Página no encontrada</h1>} />
-            <Route path="/" element={<News />} />
+            <Route exact path="/" element={<News />} />
             <Route path="/Novedades" element={<News />} />
             <Route path="/Carrito" element={<Cart />} />
             <Route path='/movie/:id' element={<ItemDetailContainer />} />
