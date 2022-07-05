@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import './Navbar.css';
 
 
-const pages = ['Novedades', 'Calendario', 'Favoritos'];
+const pages = ['Novedades', 'Populares', 'Contacto'];
 
 const Navbar = () => {
   const { totalMovies } = useContext(CartContext);

@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { getGenres } from '../../util/genres';
 import React from 'react';
 
-export default function GenresList() {
+export default function GenresList({ option }) {
   const { genreId } = useParams();
   const [ genres, setGenres ] = useState([]);
 
@@ -33,11 +33,11 @@ export default function GenresList() {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="outlined button group">
-        <Button as={Link} className='btnGenreGroup' style={{textDecoration: "none"}} variant={genreId === undefined ? 'contained' : 'outlined'} to={`/Novedades`}>Todas</Button>
+        <Button as={Link} className='btnGenreGroup' style={{textDecoration: "none"}} variant={genreId === undefined ? 'contained' : 'outlined'} to={`/${option}`}>Todas</Button>
         {
         genres.map( (genre) => {
           return(
-            <Button key={genre.id} as={Link} className='btnGenreGroup' style={{textDecoration: "none"}} variant={Number(genreId) === genre.id ? 'contained' : 'outlined'} to={`/genre/${genre.id}`}>{genre.name}</Button>
+            <Button key={genre.id} as={Link} className='btnGenreGroup' style={{textDecoration: "none"}} variant={Number(genreId) === genre.id ? 'contained' : 'outlined'} to={`/${option}/genre/${genre.id}`}>{genre.name}</Button>
           )
         })
         }

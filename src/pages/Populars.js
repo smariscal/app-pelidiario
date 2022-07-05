@@ -1,13 +1,13 @@
 import ItemListContainer from '../components/ItemListContainer/ItemListContainer';
 
-const News = () => {
+const Populars = () => {
   return (
     //JSX
     <ItemListContainer
-        titulo='Novedades'
-        option='Novedades'
+        titulo='Populares'
+        option='Populares'
     />
   );
 }
 
-export default News;
+export default Populars;

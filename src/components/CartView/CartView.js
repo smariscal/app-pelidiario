@@ -8,7 +8,7 @@ import TMDB from '../../util/TMDB';
 import CartContext from '../../context/CartContext';
 import './CartView.css';
 
-export default function BasicTable() {
+export default function CartView() {
   const { deleteMovie, deleteMovies, cartMovies, totalMovies } = useContext(CartContext);
   const [ openDialog, setOpenDialog ] = useState(false);
   const [ formSubmit, setFormSumbit ] = useState(false);  
@@ -168,7 +168,7 @@ export default function BasicTable() {
               <Button onClick={handleSubmit}>Finalizar</Button>
             </DialogActions>
           </Dialog>
-        </Grid>        
+        </Grid>       
         :
         <Grid container sx={{marginTop:'15px'}}>
           <div className='general-container'>
